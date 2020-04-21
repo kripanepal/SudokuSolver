@@ -1,0 +1,95 @@
+#table {
+  font-size: larger;
+}
+
+.notEditable {
+    color: rgb(21, 73, 218);
+    font-weight: bold;
+    
+}
+
+.ta,
+.notEditable {
+  height: 40px;
+  width: 40px;
+}
+.levels
+{
+    position: relative;
+    top: 50px;
+}
+
+
+input {
+  padding-left: 15px;
+}
+
+tr:nth-child(-n + 3) input[type="number"]:nth-child(-n + 3) {
+  background-color: rgb(192, 192, 247);
+}
+tr:nth-child(n + 4):nth-child(-n + 6)
+  input[type="number"]:nth-child(n + 0):nth-child(-n + 3) {
+  background-color: rgb(243, 193, 184);
+}
+tr:nth-child(n + 4):nth-child(-n + 6)
+  input[type="number"]:nth-child(n + 0):nth-child(-n + 3) {
+  background-color: rgb(243, 193, 184);
+}
+
+tr:nth-child(n + 7):nth-child(-n + 9)
+  input[type="number"]:nth-child(n + 0):nth-child(-n + 3) {
+  background-color: rgb(185, 175, 173);
+}
+
+tr:nth-child(-n + 3) input[type="number"]:nth-child(n + 4):nth-child(-n + 6) {
+  background-color: rgb(223, 220, 181);
+}
+tr:nth-child(n + 4):nth-child(-n + 6)
+  input[type="number"]:nth-child(n + 3):nth-child(-n + 6) {
+  background-color: rgb(175, 240, 149);
+}
+tr:nth-child(n + 4):nth-child(-n + 6)
+  input[type="number"]:nth-child(n + 2):nth-child(-n + 3) {
+  background-color: rgb(243, 193, 184);
+}
+
+tr:nth-child(n + 7):nth-child(-n + 9)
+  input[type="number"]:nth-child(n + 4):nth-child(-n + 6) {
+  background-color: rgb(170, 235, 243);
+}
+
+tr:nth-child(-n + 3) input[type="number"]:nth-child(n + 4):nth-child(-n + 6) {
+  background-color: rgb(223, 220, 181);
+}
+tr:nth-child(n + 4):nth-child(-n + 6)
+  input[type="number"]:nth-child(n + 7):nth-child(-n + 9) {
+  background-color: rgb(194, 178, 177);
+}
+tr:nth-child(n + 7):nth-child(-n + 9)
+  input[type="number"]:nth-child(n + 7):nth-child(-n + 9) {
+  background-color: rgb(211, 178, 172);
+}
+
+tr:nth-child(n + 0):nth-child(-n + 3)
+  input[type="number"]:nth-child(n + 7):nth-child(-n + 9) {
+  background-color: rgb(135, 176, 180);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+
+#watermarkNot {
+  position: absolute;
+  color: rgb(17, 17, 17);
+  opacity: 0.2;
+  font-size: 6em;
+  width: 100%;
+  top: 15%; 
+  right:20%   
+  text-align: center;
+  z-index: 0;
+}

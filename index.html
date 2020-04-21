@@ -1,0 +1,33 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src = "https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css.css">
+    
+</head>
+<body >
+
+    <div class = 'everything'>
+        <div id = 'watermarkNot'> SOLVED </div>
+   <div id = "mainDiv" >
+
+   </div>
+  
+   <div class = 'levels'>
+       Select level twice if there is a lag.<br/><br/>
+    <input type = 'radio' name = 'level' onclick = "setLevel('easy')" checked/>Easy
+    <input type = 'radio' name = 'level' onclick = "setLevel('medium')">Medium </button>
+    <input type = 'radio' name = 'level' onclick = "setLevel('hard')">Hard </button>
+    <input type = 'radio' name = 'level' onclick = "setLevel('expert')">Expert </button>
+    <br/><br/>
+    <button onclick = "solver()">Solve </button>
+    
+   </div>
+   
+</div>
+</body>
+<script src = "script.js"></script>
+</html>
