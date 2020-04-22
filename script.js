@@ -93,6 +93,7 @@ function createInitialtable(currentLevel) {
     console.log(matrix);
     matrix = [...matrix2];
     
+    
     done = false;
   } else {
     console.log("can not");
@@ -182,6 +183,7 @@ async function color(i, j) {
   }
 }
 function solvera() {
+matrix=[...matrix2]
   done = true;
   console.log(test);
   for (let row = 0; row < 9; row++) {
