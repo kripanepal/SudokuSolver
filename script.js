@@ -202,7 +202,9 @@ matrix=[...matrix2]
               return true;
             } else {
               document.getElementById("cell" + row + col).value = "";
-
+document
+              .getElementById("cell" + row + col)
+              .setAttribute("disabled", "false");
               matrix[row][col] = "$";
             }
           }
