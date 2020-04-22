@@ -1,13 +1,23 @@
 var matrix = new Array(9);
+var matrix2 = new Array(9);
 var currentLevel = 37;
-for (var i = 0; i < 9; i++) {
-  matrix[i] = new Array(9);
+var test = true;
+createMatrices()
+function createMatrices()
+{
+  for (var i = 0; i < 9; i++) {
+    matrix[i] = new Array(9);
+    matrix2[i] = new Array(9);
+  }
 }
+
 var done = false;
 createInitialtable(currentLevel);
-var done = false;
 
 function createInitialtable(currentLevel) {
+  done = false;
+
+  console.log("creating");
   document.getElementById("watermarkNot").style.visibility = "hidden";
   var table = document.createElement("table");
   table.setAttribute("border", 1);
@@ -37,6 +47,7 @@ function createInitialtable(currentLevel) {
 
     for (var cell = 0; cell < 9; cell++) {
       matrix[row][cell] = "$";
+      matrix2[row][cell] = "$";
 
       td = document.createElement("td");
       ta = document.createElement("input");
@@ -55,6 +66,7 @@ function createInitialtable(currentLevel) {
           //td.value = randNum;
           ta.value = randNum;
           matrix[row][cell] = randNum;
+          matrix2[row][cell] = randNum;
           //td.setAttribute("class", "notEditable");
           ta.setAttribute("class", "notEditable");
           locSet.delete(row + "" + cell);
@@ -76,6 +88,17 @@ function createInitialtable(currentLevel) {
       tr.appendChild(ta);
     }
     table.appendChild(tr);
+  }
+  if (solveCheck()) {
+    console.log(matrix);
+    matrix = [...matrix2];
+    
+    done = false;
+  } else {
+    console.log("can not");
+    var element = document.getElementById("table");
+    element.parentNode.removeChild(element);
+    createInitialtable(currentLevel);
   }
 }
 
@@ -151,7 +174,7 @@ async function color(i, j) {
   if (!done) {
     var element = document.getElementById("cell" + i + "" + j);
     var preColor = element.style.backgroundColor;
- 
+
     element.style.backgroundColor = "red";
     setTimeout(function () {
       element.style.backgroundColor = preColor;
@@ -160,22 +183,25 @@ async function color(i, j) {
 }
 function solvera() {
   done = true;
+  console.log(test);
   for (let row = 0; row < 9; row++) {
     for (let col = 0; col < 9; col++) {
       if (matrix[row][col] == "$") {
         for (let number = 1; number <= 9; number++) {
           if (check(row, col, number)) {
-            this.matrix[row][col] = number;
             document.getElementById("cell" + row + col).value = number;
             document
               .getElementById("cell" + row + col)
               .setAttribute("disabled", "true");
 
+            matrix[row][col] = number;
+
             if (solvera()) {
               return true;
             } else {
               document.getElementById("cell" + row + col).value = "";
-              this.matrix[row][col] = "$";
+
+              matrix[row][col] = "$";
             }
           }
         }
@@ -187,6 +213,7 @@ function solvera() {
   return true;
 }
 function aa() {
+
   console.log(matrix);
 }
 
@@ -203,6 +230,8 @@ function setLevel(type) {
   if (type === "expert") {
     currentLevel = 20;
   }
+ 
+  createMatrices()
   var element = document.getElementById("table");
   element.parentNode.removeChild(element);
   createInitialtable(currentLevel);
@@ -216,14 +245,47 @@ function checkDone() {
       }
     }
   }
-  if (done) {
+ 
     document.getElementById("watermarkNot").style.visibility = "visible";
-  }
+
+    for(var i = 0;i<=8;i++)
+    {for(var j = 0;j<=8;j++)
+    {
+      document.getElementById('cell'+row+''+col).setAttribute('disabled')
+    }}
+
+    
+  
 }
 
 function solver() {
   var temp = solvera();
   if (temp) {
     document.getElementById("watermarkNot").style.visibility = "visible";
+    done = false;
   }
+}
+
+function solveCheck() {
+  done = true;
+  for (let row = 0; row < 9; row++) {
+    for (let col = 0; col < 9; col++) {
+      if (matrix[row][col] == "$") {
+        for (let number = 1; number <= 9; number++) {
+          if (check(row, col, number)) {
+            matrix[row][col] = number;
+
+            if (solveCheck()) {
+              return true;
+            } else {
+              matrix[row][col] = "$";
+            }
+          }
+        }
+        return false;
+      }
+    }
+  }
+
+  return true;
 }
