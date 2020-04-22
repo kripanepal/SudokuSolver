@@ -13,11 +13,7 @@
   height: 40px;
   width: 40px;
 }
-.levels
-{
-    position: relative;
-    top: 50px;
-}
+
 
 
 input {
@@ -87,9 +83,14 @@ input::-webkit-inner-spin-button {
   color: rgb(17, 17, 17);
   opacity: 0.2;
   font-size: 6em;
-  width: 100%;
+ 
   top: 15%; 
-  right:20%   
+
   text-align: center;
   z-index: 0;
+}
+
+.again
+{
+  visibility: hidden;
 }

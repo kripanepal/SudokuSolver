@@ -17,7 +17,7 @@ createInitialtable(currentLevel);
 function createInitialtable(currentLevel) {
   done = false;
 
-  console.log("creating");
+
   document.getElementById("watermarkNot").style.visibility = "hidden";
   var table = document.createElement("table");
   table.setAttribute("border", 1);
@@ -90,12 +90,15 @@ function createInitialtable(currentLevel) {
     table.appendChild(tr);
   }
   if (solveCheck()) {
-    console.log(matrix);
-    matrix = [...matrix2];
-    
+
+    matrix = matrix2.map(function(arr) {
+      console.log('cloning')
+      return arr.slice();
+  });
+
     done = false;
   } else {
-    console.log("can not");
+
     var element = document.getElementById("table");
     element.parentNode.removeChild(element);
     createInitialtable(currentLevel);
@@ -183,7 +186,7 @@ async function color(i, j) {
 }
 function solvera() {
   done = true;
-  console.log(test);
+
   for (let row = 0; row < 9; row++) {
     for (let col = 0; col < 9; col++) {
       if (matrix[row][col] == "$") {
@@ -215,27 +218,9 @@ function solvera() {
 function aa() {
 
   console.log(matrix);
+  console.log(matrix2);
 }
 
-function setLevel(type) {
-  if (type === "easy") {
-    currentLevel = 36;
-  }
-  if (type === "medium") {
-    currentLevel = 31;
-  }
-  if (type === "hard") {
-    currentLevel = 25;
-  }
-  if (type === "expert") {
-    currentLevel = 20;
-  }
- 
-  createMatrices()
-  var element = document.getElementById("table");
-  element.parentNode.removeChild(element);
-  createInitialtable(currentLevel);
-}
 
 function checkDone() {
   for (var i = 0; i < 9; i++) {
@@ -259,9 +244,16 @@ function checkDone() {
 }
 
 function solver() {
+
+  matrix = matrix2.map(function(arr) {
+    console.log('cloning')
+    return arr.slice();
+});
   var temp = solvera();
   if (temp) {
     document.getElementById("watermarkNot").style.visibility = "visible";
+    document.getElementsByClassName("again")[0].style.visibility = "visible";
+    document.getElementsByClassName("solve")[0].style.visibility = "hidden";
     done = false;
   }
 }
