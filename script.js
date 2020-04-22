@@ -219,26 +219,6 @@ function aa() {
   console.log(matrix);
 }
 
-function setLevel(type) {
-  if (type === "easy") {
-    currentLevel = 36;
-  }
-  if (type === "medium") {
-    currentLevel = 31;
-  }
-  if (type === "hard") {
-    currentLevel = 25;
-  }
-  if (type === "expert") {
-    currentLevel = 20;
-  }
- 
-  createMatrices()
-  var element = document.getElementById("table");
-  element.parentNode.removeChild(element);
-  createInitialtable(currentLevel);
-}
-
 function checkDone() {
   for (var i = 0; i < 9; i++) {
     for (var j = 0; j < 9; j++) {
