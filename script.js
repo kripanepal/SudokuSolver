@@ -1,7 +1,8 @@
 var matrix = new Array(9);
-var current = true
-var currentTarget
+var current = true;
+var currentTarget;
 var matrix2 = new Array(9);
+var colors = new Array(9);
 var currentLevel = 37;
 var test = true;
 createMatrices();
@@ -9,6 +10,7 @@ function createMatrices() {
   for (var i = 0; i < 9; i++) {
     matrix[i] = new Array(9);
     matrix2[i] = new Array(9);
+    colors[i] = new Array(9);
   }
 }
 
@@ -179,7 +181,7 @@ function check(row, col, value, calledFrom) {
   return can;
 }
 
-async function color(i, j) {
+function color(i, j) {
   if (!done) {
     var element = document.getElementById("cell" + i + "" + j);
     var preColor = element.style.backgroundColor;
@@ -282,29 +284,46 @@ function solveCheck() {
 }
 
 function highLight() {
+  removeColor();
 
   for (var i = 0; i <= 8; i++) {
     for (var j = 0; j <= 8; j++) {
-      if ((current)) {
-        
-        if (matrix[i][j] == event.target.value) {
-          console.log(i + "" + j);
-          document.getElementById("cell" + i + j).style.color = "red";
-          document.getElementById("cell" + i + j).style.fontWeight = "bold";
-        }
-      } else {
-        
-
-        var element = document.getElementById("cell" + i + j);
-        if (element.getAttribute("class") != "notEditable") {
-          document.getElementById("cell" + i + j).style.color = "black";
-        } else {
-          document.getElementById("cell" + i + j).style.color = "blue";
-        }
+      if (matrix[i][j] == event.target.value) {
+        console.log(i + "" + j);
+        document.getElementById("cell" + i + j).style.backgroundColor = "rgb(204, 99, 99)";
+        document.getElementById("cell" + i + j).style.fontWeight = "bold";
       }
     }
   }
-  current = !current;
 }
 
-function removeColor() {}
+function removeColor() {
+  for (var i = 0; i <= 8; i++) {
+    for (var j = 0; j <= 8; j++) {
+      var element = document.getElementById("cell" + i + j);
+
+      element.style.backgroundColor = colors[i][j];
+
+    }
+  }
+}
+
+function saveColor() {
+  for (var i = 0; i <= 8; i++) {
+    for (var j = 0; j <= 8; j++) {
+      element = document.getElementById("cell" + i + "" + j).style
+        .backgroundColor;
+      colors[i][j] = element;
+    }
+  }
+}
+
+window.onload = saveColor();
+
+document.body.onclick = function(e) {
+  if(e.target != document.getElementById('mainDiv')) {
+      console.log('You clicked outside');
+  } else {
+      removeColor()
+  }
+}

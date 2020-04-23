@@ -6,12 +6,12 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css.css" />
   </head>
-  <body>
-    <div class="everything">
+  <body >
+    <span class="everything" onload="saveColor()">
      
-      <div id="mainDiv"> <div id="watermarkNot" style="visibility: hidden;">SOLVED</div></div>
+      <span id="mainDiv"> <div id="watermarkNot" style="visibility: hidden;">SOLVED</div></span>
 
-      <div class="levels">
+      <div class="levels" onclick="removeColor()">
           <br/>
         <button class="solve" onclick="solver()">Solve</button>
         <br/>
@@ -23,7 +23,7 @@
         </button>
         <!-- <button onclick="aa()">Solve</button> -->
       </div>
-    </div>
+    </span>
   </body>
   <script src="script.js"></script>
 </html>
