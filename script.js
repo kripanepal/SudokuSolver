@@ -1,10 +1,11 @@
 var matrix = new Array(9);
+var current = true
+var currentTarget
 var matrix2 = new Array(9);
 var currentLevel = 37;
 var test = true;
-createMatrices()
-function createMatrices()
-{
+createMatrices();
+function createMatrices() {
   for (var i = 0; i < 9; i++) {
     matrix[i] = new Array(9);
     matrix2[i] = new Array(9);
@@ -17,8 +18,6 @@ createInitialtable(currentLevel);
 function createInitialtable(currentLevel) {
   done = false;
 
-
-  document.getElementById("watermarkNot").style.visibility = "hidden";
   var table = document.createElement("table");
   table.setAttribute("border", 1);
 
@@ -59,6 +58,8 @@ function createInitialtable(currentLevel) {
       ta.setAttribute("min", "1");
       ta.setAttribute("max", "9");
       ta.setAttribute("class", "ta");
+      ta.setAttribute("onclick", "highLight()");
+      //ta.setAttribute("onmouseout", "removeColor()");
 
       if (locSet.has(row + "" + cell)) {
         randNum = Math.floor(Math.random() * 9 + 1);
@@ -67,10 +68,11 @@ function createInitialtable(currentLevel) {
           ta.value = randNum;
           matrix[row][cell] = randNum;
           matrix2[row][cell] = randNum;
+
           //td.setAttribute("class", "notEditable");
           ta.setAttribute("class", "notEditable");
           locSet.delete(row + "" + cell);
-          ta.setAttribute("disabled", "true");
+          ta.setAttribute("readonly", "readonly");
         } else {
           //td.setAttribute("contenteditable", "true");
           ta.setAttribute("onKeyup", "assignValue(event,this)");
@@ -90,15 +92,12 @@ function createInitialtable(currentLevel) {
     table.appendChild(tr);
   }
   if (solveCheck()) {
-
-    matrix = matrix2.map(function(arr) {
-      console.log('cloning')
+    matrix = matrix2.map(function (arr) {
       return arr.slice();
-  });
+    });
 
     done = false;
   } else {
-
     var element = document.getElementById("table");
     element.parentNode.removeChild(element);
     createInitialtable(currentLevel);
@@ -135,23 +134,27 @@ function assignValue(event, element) {
 }
 
 function check(row, col, value, calledFrom) {
+  var can = true;
+  var pre = 0;
   for (i = 0; i < 9; i++) {
     if (matrix[row][i] == value) {
       if (calledFrom != "main") {
+        pre = row + "" + i;
         color(row, i);
         document.getElementById("cell" + row + col).value = "";
         matrix[row][col] = "$";
       }
 
-      return false;
+      can = false;
     } else if (matrix[i][col] == value) {
       if (calledFrom != "main") {
+        pre = i + "" + col;
         color(i, col);
         document.getElementById("cell" + row + col).value = "";
         matrix[row][col] = "$";
       }
 
-      return false;
+      can = false;
     }
   }
 
@@ -162,15 +165,18 @@ function check(row, col, value, calledFrom) {
     for (var j = colStart; j < colStart + 3; j++) {
       if (matrix[i][j] == value) {
         if (calledFrom != "main") {
-          color(i, j);
+          if (pre != i + "" + j) {
+            color(i, j);
+          }
+
           document.getElementById("cell" + row + col).value = "";
           matrix[row][col] = "$";
         }
-        return false;
+        can = false;
       }
     }
   }
-  return true;
+  return can;
 }
 
 async function color(i, j) {
@@ -216,11 +222,9 @@ function solvera() {
   return true;
 }
 function aa() {
-
   console.log(matrix);
   console.log(matrix2);
 }
-
 
 function checkDone() {
   for (var i = 0; i < 9; i++) {
@@ -230,25 +234,20 @@ function checkDone() {
       }
     }
   }
- 
-    document.getElementById("watermarkNot").style.visibility = "visible";
 
-    for(var i = 0;i<=8;i++)
-    {for(var j = 0;j<=8;j++)
-    {
-      document.getElementById('cell'+row+''+col).setAttribute('disabled')
-    }}
+  document.getElementById("watermarkNot").style.visibility = "visible";
 
-    
-  
+  for (var i = 0; i <= 8; i++) {
+    for (var j = 0; j <= 8; j++) {
+      document.getElementById("cell" + row + "" + col).setAttribute("disabled");
+    }
+  }
 }
 
 function solver() {
-
-  matrix = matrix2.map(function(arr) {
-    console.log('cloning')
+  matrix = matrix2.map(function (arr) {
     return arr.slice();
-});
+  });
   var temp = solvera();
   if (temp) {
     document.getElementById("watermarkNot").style.visibility = "visible";
@@ -281,3 +280,31 @@ function solveCheck() {
 
   return true;
 }
+
+function highLight() {
+
+  for (var i = 0; i <= 8; i++) {
+    for (var j = 0; j <= 8; j++) {
+      if ((current)) {
+        
+        if (matrix[i][j] == event.target.value) {
+          console.log(i + "" + j);
+          document.getElementById("cell" + i + j).style.color = "red";
+          document.getElementById("cell" + i + j).style.fontWeight = "bold";
+        }
+      } else {
+        
+
+        var element = document.getElementById("cell" + i + j);
+        if (element.getAttribute("class") != "notEditable") {
+          document.getElementById("cell" + i + j).style.color = "black";
+        } else {
+          document.getElementById("cell" + i + j).style.color = "blue";
+        }
+      }
+    }
+  }
+  current = !current;
+}
+
+function removeColor() {}
